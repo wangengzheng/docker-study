@@ -1,0 +1,20 @@
+ssserver
+
+https://hub.docker.com/r/amorphobia/docker-ssserver
+
+docker-compose
+  
+version: "2"
+services:
+        docker-ssserver:
+                image: amorphobia/docker-ssserver
+                command: '-s 0.0.0.0 -p 8848 -k sspassword -m aes-256-cfb'
+                ports:
+                        - "8848:8848"
+
+--check
+docker-compose -f docker-compose.ssserver.yml  config -q
+  
+--up
+docker-compose -f docker-compose.ssserver.yml  up -d
+
