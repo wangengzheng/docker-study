@@ -1,7 +1,7 @@
 version: "2"
 services:
         ${ssservername}:
-                image: amorphobia/docker-ssserver
+                image: fanach/ssserver
                 command: '-s 0.0.0.0 -p 8848 -k ${ssserverpassword} -m aes-256-cfb'
                 ports:
                         - "${ssserverport}:8848"
