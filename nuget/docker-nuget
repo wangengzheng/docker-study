@@ -1,0 +1,25 @@
+docker run -d --name nuget-server -p 9000:80 -e NUGET_API_KEY="" -e SERVER_NAME 104.156.255.77:9000  idoop/docker-nuget-server
+
+
+
+https://hub.docker.com/r/idoop/docker-nuget-server
+
+
+nuget push NengLong.CMP.Kyt.Core.1.0.0.nupkg  -source http://104.156.255.77:9000 -apikey nenglongnugetkey
+
+
+nuget install NengLong.CMP.Kyt.Core -version 1.0.6
+
+
+http://104.156.255.77:9000/FindPackagesById()?id=%27NengLong.CMP.Kyt.Core%27&semVerLevel=1.0.6
+
+
+Bug:
+If not set SERVER_NAME value ,client will resolve the default server name localhost at client machine.
+
+
+d:GalleryDetailsUrl
+
+http://104.156.255.77:9000/details/NengLong.CMP.Kyt.Core/1.0.6
+->
+http://localhost/details/NengLong.CMP.Kyt.Core/1.0.6
