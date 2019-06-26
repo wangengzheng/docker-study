@@ -1,0 +1,49 @@
+#! /bin/bash
+echo "欢迎来到ktjx docker run sh 请确保docker registry 是在 zhengwangeng 下"
+
+
+echo "请输入 账号 1021349117@qq.com docker regiestry 密码"
+read password
+login="docker login --username=1021349117@qq.com --password $password registry.cn-shenzhen.aliyuncs.com"
+
+echo $login
+{
+$login
+} ||
+{
+  echo 'login error'
+  exit 1
+}
+echo "请输入容器名 --name {___}"
+
+read container_name
+
+# run
+# sh try catch
+{
+        docker ps -a | grep $container_name
+        docker inspect $container_name
+        docker rm -f $container_name
+}||
+{
+        echo "no exist $container_name"
+} && \
+
+
+echo "请输入容器端口 -p {___}:80"
+read container_port
+
+echo "请输入环境 ASPNETCORE_ENVIRONMENT={___} eg:Development Staging Production"
+read container_environment
+
+echo "请输入registry 对用镜像名 registry.cn-shenzhen.aliyuncs.com/zhengwangeng/{___}"
+read container_imagename
+
+echo "请输入镜像版本 registry.cn-shenzhen.aliyuncs.com/zhengwangeng/$container_imagename:{___}"
+read container_version
+
+cmd="docker run -p $container_port:80 -e ASPNETCORE_ENVIRONMENT="$container_environment" -v /home/ktjx_backend/$container_environment/$container_name:/app/LogFiles -d  --restart unless-stopped --name $container_name  registry.cn-shenzhen.aliyuncs.com/zhengwangeng/$container_imagename:$container_version"
+
+echo $cmd
+
+exec $cmd
